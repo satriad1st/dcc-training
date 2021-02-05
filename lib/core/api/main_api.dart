@@ -30,11 +30,8 @@ class MainApi {
           validateStatus: (status) => true
         )
       );
-      print("response.statusCode");
-      print(response.statusCode);
-      if(response.statusCode == 200) {
+      if(response.statusCode == 200)
         return jsonEncode(jsonDecode(response.data)['data']);
-      }
       else if(response.statusCode == 400 || response.statusCode == 401)
         throw jsonDecode(response.data)['message'];
       else 

@@ -8,11 +8,8 @@ class ProductApi extends MainApi {
       final response = await getRequest(
         url: "$host/admin/product"
       );
-      print("BERHASIL LAGI");
       return productResponseFromJson(response).product;
     } catch (error) {
-      print("KLO INI GAGAL");
-      print(error);
       throw error;
     }
   }
