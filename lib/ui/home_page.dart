@@ -5,6 +5,7 @@ import 'package:first_project/core/model/product_model.dart';
 import 'package:first_project/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toast/toast.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    print("ASDA");
     bloc.add(LoadProducts());
     super.initState();
   }
@@ -28,9 +30,14 @@ class _HomePageState extends State<HomePage> {
       cubit: bloc,
       listener: (context, state) {
         if(state is ProductsLoaded) {
+          print("LOADED DATA");
+          print(state.data);
           setState(() {
             products = state.data;
           });
+        }
+        else if(state is ProductFailure) {
+          Toast.show(state.error, context);
         }
       },
       child: Scaffold(
@@ -46,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: ListView.separated(
-          itemCount: 10,
+          itemCount: products.length,
           separatorBuilder: (context, index) => Divider(height: 6, color: Colors.grey),
           itemBuilder: (context, index) => ProductItem(),
         ),

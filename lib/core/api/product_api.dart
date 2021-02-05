@@ -6,10 +6,13 @@ class ProductApi extends MainApi {
   Future<List<Product>> loadProducts() async {
     try {
       final response = await getRequest(
-        url: "$host/admin/products"
+        url: "$host/admin/product"
       );
+      print("BERHASIL LAGI");
       return productResponseFromJson(response).product;
     } catch (error) {
+      print("KLO INI GAGAL");
+      print(error);
       throw error;
     }
   }

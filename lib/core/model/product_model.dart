@@ -9,36 +9,16 @@ String productResponseToJson(ProductResponse data) => json.encode(data.toJson())
 class ProductResponse {
     ProductResponse({
         this.product,
-        this.totalProduct,
-        this.totalPages,
-        this.totalAllProduct,
-        this.currentPage,
-        this.limit,
     });
 
     List<Product> product;
-    int totalProduct;
-    int totalPages;
-    int totalAllProduct;
-    int currentPage;
-    int limit;
 
     factory ProductResponse.fromJson(Map<String, dynamic> json) => ProductResponse(
-        product: List<Product>.from(json["product"].map((x) => Product.fromJson(x))),
-        totalProduct: json["totalProduct"],
-        totalPages: json["totalPages"],
-        totalAllProduct: json["totalAllProduct"],
-        currentPage: json["currentPage"],
-        limit: json["limit"],
+        product: json["product"] != null ? List<Product>.from(json["product"].map((x) => Product.fromJson(x))) : [],
     );
 
     Map<String, dynamic> toJson() => {
         "product": List<dynamic>.from(product.map((x) => x.toJson())),
-        "totalProduct": totalProduct,
-        "totalPages": totalPages,
-        "totalAllProduct": totalAllProduct,
-        "currentPage": currentPage,
-        "limit": limit,
     };
 }
 
@@ -74,19 +54,19 @@ class Product {
     int v;
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
-        stock: json["stock"],
-        sellPrice: json["sellPrice"],
-        description: json["description"],
-        images: List<dynamic>.from(json["images"].map((x) => x)),
-        isDeleted: json["isDeleted"],
-        id: json["_id"],
-        name: json["name"],
-        merkProduct: json["merkProduct"],
-        buyPrice: json["buyPrice"],
-        category: Category.fromJson(json["category"]),
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
+        stock: json["stock"] ?? 0,
+        sellPrice: json["sellPrice"] ?? 0,
+        description: json["description"] ?? "",
+        images: json["images"] != null ? List<dynamic>.from(json["images"].map((x) => x)) : [],
+        isDeleted: json["isDeleted"] ?? false,
+        id: json["_id"] ?? "",
+        name: json["name"] ?? "",
+        merkProduct: json["merkProduct"] ?? "",
+        buyPrice: json["buyPrice"] ?? 0,
+        category: json["category"] != null ? Category.fromJson(json["category"]) : null,
+        // createdAt: DateTime.parse(json["createdAt"]),
+        // updatedAt: DateTime.parse(json["updatedAt"]),
+        // v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {

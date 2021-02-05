@@ -18,6 +18,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         final response = await api.loadProducts();
         yield ProductsLoaded(data: response);
       } catch (error) {
+        print(error);
         yield ProductFailure(error: error);
       }
     }
